@@ -59,13 +59,21 @@ Distinct from `images`: These are typically charts produced by notebook code exe
 
 
 The **Oceans Observatories Initiative** has operated since 2014 generating a profoundly rich dataset; and at the same
-time a challenge in analysis and interpretation. What does it all mean? This project seeks to address three specific
-sub-questions as a means to making scientific progress:
+time a challenge in analysis and interpretation. The starting point is to characterize a single photic zone data set:
+Regular observations of temperature, dissolved oxygen, salinity, particulate backscatter, chlorophyll 
+concentration, dissolved organic matter fluorescence, nitrate concentration, pH, carbon dioxide concentration, 
+spectral irradiance (7 wavelengths), spectrophotometry (2 x 83 channels), photosynthetically-available radiation
+and ocean current in three dimensions: Measured 18 times per day over a depth range of the upper 200 meters of 
+the ocean. This is roughly speaking depth/time-series in 18 dimensions. The interpretability of such a
+synoptic dataset... rewrite paused here...
 
 
-1. How are we to get data in a usable form?
-2. Can we trust the data once we have it?
-3. Once we have usable trustworthy data: What do we do with it? 
+Questions as a means to making scientific progress:
+
+
+- How are we to get data in a usable form?
+- Can we trust the data once we have it?
+- Once we have usable trustworthy data: What do we do with it? 
 
 
 ## *'The Problem'*: Potential Project Objectives
