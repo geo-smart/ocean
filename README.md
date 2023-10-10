@@ -8,65 +8,83 @@
 ## Project Overview
 
 
-The **Oceans Observatories Initiative** has operated since 2014 generating a profoundly rich dataset; and at the same
-time a challenge in analysis and interpretation. The starting point is to characterize a single photic zone data set:
-Regular observations of temperature, dissolved oxygen, salinity, particulate backscatter, chlorophyll 
-concentration, dissolved organic matter fluorescence, nitrate concentration, pH, carbon dioxide concentration, 
-spectral irradiance (7 wavelengths), spectrophotometry (2 x 83 channels), photosynthetically-available radiation
-and ocean current in three dimensions: Measured 18 times per day over a depth range of the upper 200 meters of 
-the ocean. This is roughly speaking depth/time-series in 18 dimensions. The interpretability of such a
-synoptic dataset... rewrite paused here...
+The primary goal is to transform observational ocean data into
+scientific insight into how the ocean works as a major component of the earth system.
+Turning first to the data resource: The **Oceans Observatories Initiative** has operated 
+since 2014 generating a profoundly rich dataset.
+The variety and scope extend for nearly a decade across continental shelves and the deep ocean, across 
+the water column from sea floor to surface, from seismology to marine mammal vocalizations to physical,
+chemical and biological sensors. At the same time this complex system presents challenges in analysis 
+and interpretation. 
 
 
-Questions as a means to making scientific progress:
+The starting point or core of this project is a characterization of the ocean photic zone, from 200 meters
+depth to the surface, the region of light. Regular observations include temperature, dissolved oxygen, 
+salinity, particulate backscatter, chlorophyll concentration, dissolved organic matter fluorescence, 
+nitrate concentration, pH, carbon dioxide concentration, spectral irradiance (7 wavelengths), 
+spectrophotometry (2 forms x 83 channels), photosynthetically-available radiation and ocean current in 
+three dimensions. These parameters are measured up to 18 times per day from 200 meters depth up to
+near-surface in centimeter-scale increments. Consequently we are, roughly speaking, trying to 
+understand the upper ocean in both depth and time as an 18-dimensional space. 
 
 
-- How are we to get data in a usable form?
-- Can we trust the data once we have it?
-- Once we have usable trustworthy data: What do we do with it? 
+The interpretability of this 'starting point' synoptic dataset is itself daunting; but having come this
+far we are also interested in making the problem "worse" after a fashion:
 
 
-## *'The Problem'*: Potential Project Objectives
+- Does the near surface time series agree with satellite observations?
+- Does it agree with predictive ocean models?
+- Does it agree with independent observations, for example from gliders or drifters (such as ARGO)?
 
 
-This project begins from a very rich set of data (emphasis: Upper water column / photic zone; see brief below) and provides five potential project directions to consider. Alternative ideas are welcome of course! The primary goal is to transform observational ocean data into
-scientific insight into how the ocean works as a major component of the earth system.  
+Questions applicable to all of the data include
 
 
-1. Extend water column observations to map plane data using complementary observations from the MODIS satellite
-2. In search of synthesis: Apply machine learning methods to ten coincident instrument data streams
-3. Evaluate agreement between regional ocean model forecasts and *in situ* observations
-4. Characterize water column biochemical profiles in relation to physical drivers such as turbulence, salinity and temperature
-5. Develop a discrete sampling strategy driven by real-time analysis of automated sensor data streams
-6. Sharpen the analysis workflow for existing automated sensors
-7. Investigate: Can the data be used to differentiate influences of coastal upwilling versus terrigenous freshwater runoff?
+- How to get data in a usable form?
+- Can the data be trusted?
+- How can machine learning methods be constructively applied to this multi-dimensional space? 
+
+
+## Elaboration: Potential Project Objectives
+
+
+This project begins from the rich time series data described above (again: emphasizing the upper water column / photic zone). 
+The following examples demonstrate potential project directions. Alternative ideas are welcome of course! 
+
+
+1. Extend water column observations to map plane data using complementary observations from MODIS
+2. Apply machine learning methods to *N > 3* coincident instrument data streams
+3. Evaluate agreement between regional ocean model forecasts and *in situ* observation
+4. Characterize water column biochemical profiles in relation to physical drivers such as turbulence and temperature
+5. From real-time automated sensor data streams: Build a strategy for discrete sampling during maintenance cruises
+6. Build an analysis workflow for automated sensors, e.g. anomaly/thin-layer detection
+7. Use the data to differentiate influences of coastal upwilling versus terrigenous freshwater runoff
+
 
 ## Project Background: The Data Sketch
 
 
-- und so weiter
+-
 
 
 ## Project operational details
 
 
-Should this project go forward: Here is where goes the details.
+-
 
 
 ### Collaborators
 
-List all participants on the project.
-
-* Lead
-* Team member
-* Team member
-* ...
+-
 
 
 ### Specific questions / project goals
 
 
-List the specific tasks you want to accomplish, project goals, or research questions you want to answer. Think about what outcomes or deliverables you'd like to create (e.g. a series of tutorial notebooks demonstrating a [use case](https://geo-smart.github.io/usecases#Contributing), or a new python package).
+- specific tasks you want to accomplish, project goals, or research questions you want to answer.
+- Think about what outcomes or deliverables you'd like to create
+    - e.g. a series of tutorial notebooks demonstrating a [use case](https://geo-smart.github.io/usecases#Contributing)
+    - e.g. a new python package
 
 
 ### Data
@@ -89,16 +107,13 @@ Needed: What new approaches would you like to try to implement to address your s
 
 ### Additional resources or background reading
 
-- und so weiter
 
 ### Task Breakdown
 
 
-What are the individual tasks or steps that need to be taken to achieve the project goals? Think about which tasks are dependent on prior tasks, or which tasks can be performed in parallel. This can help divide up project work among team members.
+### Repo structure
 
-
-
-- Repo structure
+- Overview
     - Files
         - `.gitignore`
 <br> Globally ignored files by `git` for the project.
