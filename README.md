@@ -1,58 +1,8 @@
-# Repo structure
-
-## Files
-
-* `.gitignore`
-<br> Globally ignored files by `git` for the project.
-* `environment.yml`
-<br> `conda` environment description needed to run this project.
-* `README.md`
-<br> Description of the project (see suggested headings below)
-
-## Folders
-
-
-This template provides the following folders and suggested organizaiton structure for the project repository, but each project team is free to organize their repository as they see fit.
-
-
-### `contributors`
-
-
-Each team member can create their own folder under contributors, within which they can work on their own scripts, notebooks, and other files. Having a dedicated folder for each person helps to prevent conflicts when merging with the main branch. This is a good place for team members to start off exploring data and methods for the project.
-
-
-### `notebooks`
-
-
-Notebooks that are considered delivered results for the project should go in here.
-
-
-### `scripts`
-
-
-Helper utilities that are shared with the team should go in here.
-
-
-### `data`
-
-
-Low-volume datasets that serve as excerpts from the full OOI operational time range. The sub-folders help
-organize data by sensor/instrument/context/etcetera. 
-
-
-### `images`
-
-Resource images, for example invoked by notebook markdown for inline inclusion in a narrative.
-
-
-### `figures`
-
-
-Distinct from `images`: These are typically charts produced by notebook code execution.
 
 
 
-# Understanding synoptic ocean sensor data
+
+# 'Ocean': Understanding synoptic ocean sensor data
 
 
 ## Project Overview
@@ -147,9 +97,27 @@ Needed: What new approaches would you like to try to implement to address your s
 What are the individual tasks or steps that need to be taken to achieve the project goals? Think about which tasks are dependent on prior tasks, or which tasks can be performed in parallel. This can help divide up project work among team members.
 
 
-* Task 1 (all team members)
-* Task 2
-  * Task 2a (assigned to team member A)
-  * Task 2b (assigned to team member B)
-* Task 3
-* ...
+
+- Repo structure
+    - Files
+        - `.gitignore`
+<br> Globally ignored files by `git` for the project.
+        -  `environment.yml`
+<br> `conda` environment description needed to run this project.
+        - `README.md`
+<br> Description of the project (see suggested headings below)
+
+    - Folders
+        - `contributors`
+<br> Each team member can create their own folder under contributors, within which they can work on their own scripts, notebooks, and other files. Having a dedicated folder for each person helps to prevent conflicts when merging with the main branch. This is a good place for team members to start off exploring data and methods for the project.
+        - `notebooks`
+        - `scripts`
+<br> Helper utilities that are shared with the team should go in here.
+        - `data`
+<br> Low-volume datasets that serve as excerpts from the full OOI operational time range. The sub-folders help
+organize data by sensor/instrument/context/etcetera. 
+        - `images`
+<br> Resource images, for example invoked by notebook markdown for inline inclusion in a narrative.
+        - `figures`
+<br> Distinct from `images`: These are typically charts produced by notebook code execution.
+
