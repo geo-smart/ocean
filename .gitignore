@@ -107,5 +107,5 @@ venv.bak/
 *.h5
 *.hdf
 *.hdf5
-*.nc
+# *.nc Rob was here
 *.tif
