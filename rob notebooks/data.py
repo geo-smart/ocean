@@ -129,23 +129,7 @@ def ReformatDataFile(verbose=False):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def ProfCrawler(z, t, verbose = False):
+def ProfileCrawler(z, t, verbose = False):
     """
     ProfileCrawler traverses pandas Series s of pressures/depths and matching pandas Series t of times.
     The code is adapted to 1Min per sample and z is increasing up / shallow. (See 'z_direction'.)
@@ -184,10 +168,11 @@ def ProfCrawler(z, t, verbose = False):
     descent_threshold0 = -0.2
     descent_threshold1 = -0.5
     descent_bump_i = 10
-    rest_threshold0 = -0.5                 # -.5, .2, -170 worked pretty well for r0
+    rest_threshold0 = -0.5                 # -.5, .2, -170, bump 10 worked pretty well for r0: osb jan 2022
+                                           #    but was 1-too-high for jul 2021
     rest_threshold1 = 0.2             
     rest_min_depth = -170.
-    rest_bump_i = 10
+    rest_bump_i = 12
 
     # This pushes the index forward after an a0 is detected to skip some false positives
     ascent_threshold0 = 0.2
@@ -213,7 +198,7 @@ def ProfCrawler(z, t, verbose = False):
                 
         elif slope0 <= rest_threshold0 and abs(slope1) <= rest_threshold1:
             if z[i] <= rest_min_depth:
-                if (not len(r0)) or (len(d0) and len(r0) and r0[-1][0] < d0[-1][0]):
+                if (not len(r0)) or (len(a0) and len(d0) and len(r0) and r0[-1][0] < d0[-1][0]):
                     r0.append((i, t[i], z[i]))
                     i += rest_bump_i
 
@@ -222,6 +207,9 @@ def ProfCrawler(z, t, verbose = False):
     if verbose: print("there are", len(a0), "ascent starts")
     if verbose: print("there are", len(d0), "descent starts")
     if verbose: print("there are", len(r0), "rest starts")
+    
+    # deal with found a last rest start after the last ascent start
+    if len(r0) == len(a0) + 1: r0.pop()
     
     a1 = d0.copy()             # ascent end = descent start
     d1 = r0[1:].copy()         # first descent ends at start of 2nd rest start
@@ -259,7 +247,7 @@ def ProfileGenerator(sourcefnm, s, z, verbose=True):
     t0 = ds['time'][0]
     t1 = ds['time'][-1]
     
-    a0, a1, d0, d1, r0, r1 = ProfCrawler(ds[z].to_series(), ds['time'].to_series(), True)
+    a0, a1, d0, d1, r0, r1 = ProfileCrawler(ds[z].to_series(), ds['time'].to_series(), True)
 
     return a0, a1, d0, d1, r0, r1
 
@@ -279,7 +267,9 @@ def ProfileWriter(ofnm, a0, a1, d0, d1, r0, r1):
 
     profiles = []
     for i in range(len(r0)):
-        profiles.append([r0[i][0],r0[i][1],r0[i][2],r1[i][0],r1[i][1],r1[i][2],a0[i][0],a0[i][1],a0[i][2],a1[i][0],a1[i][1],a1[i][2],d0[i][0],d0[i][1],d0[i][2],d1[i][0],d1[i][1],d1[i][2]])
+        profiles.append([r0[i][0],r0[i][1],r0[i][2],r1[i][0],r1[i][1],r1[i][2],a0[i][0],a0[i][1],\
+                         a0[i][2],a1[i][0],a1[i][1],a1[i][2],d0[i][0],d0[i][1],d0[i][2],d1[i][0],\
+                         d1[i][1],d1[i][2]])
 
     df = pd.DataFrame(data=np.array([np.array(x) for x in profiles]))
     df.to_csv(ofnm)
