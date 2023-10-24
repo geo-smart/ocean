@@ -1,0 +1,17 @@
+mv bb.nc ../data/osb_fluor_jul21_bb.nc
+mv chlora.nc ../data/osb_fluor_jul21_chlora.nc
+mv conductivity.nc ../data/osb_ctd_jul21_conductivity.nc
+mv density.nc ../data/osb_ctd_jul21_density.nc
+mv do.nc ../data/osb_do_jul21_do.nc
+mv east.nc ../data/osb_vel_jul21_east.nc
+mv fdom.nc ../data/osb_fluor_jul21_fdom.nc
+mv nitrate.nc ../data/osb_nitrate_jul21_nitrate.nc
+mv north.nc ../data/osb_vel_jul21_north.nc
+mv par.nc ../data/osb_par_jul21_par.nc
+mv pco2.nc ../data/osb_pco2_jul21_pco2.nc
+mv ph.nc ../data/osb_ph_jul21_ph.nc
+mv pressure.nc ../data/osb_ctd_jul21_pressure.nc
+mv salinity.nc ../data/osb_ctd_jul21_salinity.nc
+mv spkir.nc ../data/osb_spkir_jul21_spkir.nc
+mv temperature.nc ../data/osb_ctd_jul21_temperature.nc
+mv up.nc ../data/osb_vel_jul21_up.nc
