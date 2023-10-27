@@ -92,8 +92,6 @@ labelP = 'PAR'
 labelH = 'pH'
 labelR = 'pCO2'
 
-# respectively: oxygen, temp, salinity, chlor-a, backscatter, fdom/cdom, nitrate, PAR, pH, pCO2
-optionsList = [labelO, labelT, labelS, labelA, labelB, labelC, labelN, labelP, labelH, labelR]
 
 
 ########################

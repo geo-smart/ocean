@@ -49,7 +49,7 @@ sensors = [
 
 ranges = {
 'conductivity':(0,100),'density':(1024, 1028),'pressure':(0.,200.),'salinity':(31.5, 34.5),'temperature':(6.5, 11.),
-'chlora':(-0.1,1.2),'bb':(0.0007,0.0020),'fdom':(0.6,3.4),
+'chlora':(-0.1,1.2),'bb':(0.0007,0.0040),'fdom':(0.6,3.4),
 'spkir':(0.0, 15.0),
 'nitrate':(0., 35.),
 'pco2':(200.0, 1200.0),
