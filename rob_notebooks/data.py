@@ -7,11 +7,28 @@ warnings.filterwarnings('ignore')
 
 
 def ReformatDataFile(verbose=False):
-    """Read a NetCDF and reformat it, write the result"""
+    """
+    Interactive data preparation tasks: From a combination of ad hoc hard coding and 
+    input() the idea is to read a NetCDF, reformat it, and write out that result as a new
+    NetCDF file. The flow includes:
+      - choose a site and a structure (profiler or platform)
+      - choose an instrument folder (CTD, fluor etc)
+      - choose a sensor file (temperature etc)
+      - swap 'time' in for the native dimension ('obs' or 'row' depending)
+      - review Coordinates: drop, keep or rename
+      - review Data Variables: drop, keep or rename
+      - drop all the Attributes (except those preserved)
+      - sort the time dimension: Avoids long processing time / hangs
+      - select a time range: subset (.sel()) the data
+      - eliminate duplicate time entries
+      - save the result
+    Please note: Key code elements are flagged with !!!!!
+    """
+    
     print('\n\nSpecify input NetCDF data file\n')
 
-    dataLoc         = os.getcwd() + '/../../../data/rca'                  # !!!!!!!!!!!!! adjust for geo-smart level
-    osb             = 'OregonSlopeBase'
+    dataLoc         = os.getcwd() + '/../../../data/rca'                  # !!!!! adjusted relative path for
+    osb             = 'OregonSlopeBase'                                   #   repo relocated 'one layer down' (GeoSMART)
     oos             = 'OregonOffshore'
     axb             = 'AxialBase'
     sites_list      = [osb, oos, axb]
@@ -22,7 +39,7 @@ def ReformatDataFile(verbose=False):
     # m = int(input('Site choice: Enter an index 0 1 2 for ' + str(sites_list)))
     # n = int(input('Structure choice: Enter an index 0 1 for ' + str(structures_list)))
     m = 0
-    n = 1                                                              # !!!!!!!!!!!!! override option: osb, profiler
+    n = 1                                                              # !!!!! hard code to osb + profiler
     
     resource_folder = joindir(dataLoc, sites_list[m], structures_list[n])
     s = [name for name in os.listdir(resource_folder) if os.path.isdir(joindir(resource_folder, name))]
@@ -48,11 +65,11 @@ def ReformatDataFile(verbose=False):
     print('Data Variables: ' + str(ds_data_vars))
 
     # old_dim = input('Dimension to swap out (need exact match):')
-    old_dim = 'row'                                                    # !!!!!!!!!!!!!!!! hardcoded
+    old_dim = 'row'                                                    # !!!!! hardcoded
 
     if old_dim in ds_dims:
         # new_dim = input('Coordinate or data variable to swap back in:')
-        new_dim = 'time'                        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! hardcoded
+        new_dim = 'time'                        # !!!!! hardcoded
         
         if new_dim in ds_data_vars or new_dim in ds_coords:
             ds = ds.swap_dims({old_dim:new_dim})
@@ -68,7 +85,7 @@ def ReformatDataFile(verbose=False):
     #     a = input('Drop (0), Rename or Keep: ')
     #     if   a == '0': ds = ds.drop(c)
     #     elif len(a):   ds = ds.rename({c:a})
-    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! skipping this                         
+    # !!!!! skipping this when nothing to be done                         
 
     print('\n\nRename, Drop or Retain Data Variables\n')
     ds_data_vars = [i for i in ds.data_vars]
@@ -92,22 +109,22 @@ def ReformatDataFile(verbose=False):
     #     attrs_to_preserve.append(s)
     for key in ds_attrs_dict: 
         if key not in attrs_to_preserve: ds.attrs.pop(key)
-    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! streamline hardcode
+    # !!!!! streamline hardcode
         
     print('\n\nEnsure the new Dimension is sorted (no User action)\n')    
     df   = ds.to_dataframe()
     vals = [xr.DataArray(data=df[c], dims=['time'], coords={'time':df.index}, attrs=ds[c].attrs) for c in df.columns]
-    ds  = xr.Dataset(dict(zip(df.columns, vals)), attrs=ds.attrs)
+    ds   = xr.Dataset(dict(zip(df.columns, vals)), attrs=ds.attrs)
 
     
     print('\n\nSelect output time window (Format yyyy-mm-dd or enter to use the defaults)\n')
-    t0_default, t1_default = '2021-07-01', '2021-08-01'             # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! hardcode
+    t0_default, t1_default = '2021-07-01', '2021-08-01'             # !!!!! hardcode
     # t0 = input('start date (' + t0_default + ')')
     # t1 = input('end date   (' + t1_default + ')')
     # if not len(t0): t0 = t0_default
     # if not len(t1): t1 = t1_default
     t0 = dt64(t0_default)
-    t1 = dt64(t1_default)                           # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! should be (t0), (t1)
+    t1 = dt64(t1_default)                           # !!!!! should be (t0), (t1)
     ds = ds.sel(time=slice(t0, t1))
     
     # This code eliminates duplicate-time entries. See data.ipynb for remarks on 
@@ -129,42 +146,53 @@ def ReformatDataFile(verbose=False):
 
 
 
-def ProfileCrawler(z, t, verbose = False):
+def ProfileGenerator(sourcefnm, z_key, verbose = False):
     """
-    ProfileCrawler traverses pandas Series s of pressures/depths and matching pandas Series t of times.
+    ProfileGenerator traverses pandas Series z of pressures/depths and matching pandas Series t of times.
+    It produces six event lists that are suitable for writing as a pandas DataFrame CSV file.
+    
     The code is adapted to 1Min per sample and z is increasing up / shallow. (See 'z_direction'.)
-    The code returns a set of 6 lists: t0/t1 for ascent, descent and rest intervals
+    The code returns a set of 6 lists: t0/t1 for rest, ascent, and descent events.
+        r0, r1, a0, a1, d0, d1
+    List entries are triples (i, t, z): Respectively Index of, time of, and depth of the event. 
+    The first event is presumed to be a rest r0 to r1. r1 coincides with first ascent a0. The 
+    first possible event index i is m0; the last is len_z - m1 - 1. len_z is the number of values 
+    in the time series; and we truncate by m0/m1 to permit time window derivatives.
+    
+    Note that z[m0] is m0 minutes ahead of z[0] since samples are assumed to be one per minute.
+    Likewise z[len_z - m1 - 1] is m1 minutes behind z[len_z - 1]. The depth values z[] are taken 
+    to be negative down from 0 at the surface.
+    
+    Time-series derivatives are taken in terms of (later) - (earlier) in the normal sense.
+    Conditions for identifying an Ascent start:
+      - Slope from past to present is less than a threshold (flat)
+      - Slope from present to future is positive (rising)
+      - Profiler depth < threshold (eliminates some false positives)
+    And similarly for Descent start and Rest start.
+    After a detection of ascent start the i search index is bumped forward in time to avoid
+      subsequent false positives.
     """
-    print(str(z[0]) + ' is initial depth')
+    
+    ds = xr.open_dataset(sourcefnm)
 
+    # should add: if dim not 'time' return False
+    
+    z = ds[z_key].to_series()
+    t = ds['time'].to_series()
+
+    print('Sanity: ' + str(z[0]) + ' is initial depth')
+ 
     len_z = len(z)
     a0, d0, r0 = [], [], []               # lists for start times: ascents, descents, rests
     
     r0.append((0,t[0],z[0]))
 
-    # Goal is to return 6 lists: r0, r1, a0, a1, d0, d1
-    # List entries are triples (i, t, z): Index of, time of, and depth of.
-    # The first event is presumed to be a rest r0 to r1. r1 coincides with first ascent a0.
-    #   The first possible i is m0; the last is len_z - m1 - 1. len_z is the number of
-    #   values in the time series; and we truncate by m0/m1 to permit time window derivatives.
-    # Note that z[m0] is m0 minutes ahead of z[0] since samples are assumed to be one per minute.
-    #   Likewise z[len_z - m1 - 1] is m1 minutes behind z[len_z - 1].
-    # The depth values z[] are taken to be negative down from 0 at the surface.
-    # Time-series derivatives are taken in terms of (later) - (earlier) in the normal sense.
-    # Conditions for identifying an Ascent start:
-    #   - Slope from past to present is less than a threshold (flat)
-    #   - Slope from present to future is positive (rising)
-    #   - Profiler depth < threshold (eliminates some false positives)
-    # And similarly for Descent start and Rest start.
-    #   After a detection of ascent start the i search index is bumped forward in time to avoid
-    #   subsequent false positives.
-    
     m0 = 8
     m1 = 8
     ascent_threshold0 = 0.2
     ascent_threshold1 = .5
     ascent_min_depth = -170.
-    ascent_bump_i = 10        # 7 "works" but a bit bigger is maybe no harm
+    ascent_bump_i = 10                     # 7 "works" but a bit bigger is maybe no harm
     descent_threshold0 = -0.2
     descent_threshold1 = -0.5
     descent_bump_i = 10
@@ -228,33 +256,14 @@ def ProfileCrawler(z, t, verbose = False):
                 
     # redacted: logic check on order of stamp indices
     # Returning lists of tuples: (index, time, depth)
-    return a0, a1, d0, d1, r0, r1  
-
-
-
-def ProfileGenerator(sourcefnm, s, z, verbose=True):
-    """
-    Generate a profile CSV file for a site and a time interval implicit in a depth/time NetCDF file 
-    Example: result = ProfileWriter('source.nc', 'axb', 'z', True)
-      sourcefnm is a NetCDF file containing pressure/depth and time
-      s is a site label string
-      y0, yN give an inclusive year range
-    """
-    ds = xr.open_dataset(sourcefnm)
-
-    # if dim not 'time' return False
-    
-    t0 = ds['time'][0]
-    t1 = ds['time'][-1]
-    
-    a0, a1, d0, d1, r0, r1 = ProfileCrawler(ds[z].to_series(), ds['time'].to_series(), True)
-
     return a0, a1, d0, d1, r0, r1
 
 
-
 def ProfileWriter(ofnm, a0, a1, d0, d1, r0, r1):
-
+    '''
+    Write a profile CSV file built from an output filename and the event lists
+    generated by ProfileGenerator()
+    '''
     print('a0: ' + str(len(a0)) + '    a1: ' + str(len(a1)))
     print('d0: ' + str(len(d0)) + '    d1: ' + str(len(d1)))
     print('r0: ' + str(len(r0)) + '    r1: ' + str(len(r1)))
