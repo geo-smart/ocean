@@ -71,6 +71,17 @@ colors = {
 'up':'red','east':'green','north':'blue'
 }
 
+sensor_names = {
+'conductivity':'Conductivity','density':'Density (kg m-3)','pressure':'Pressure','salinity':'Salinity','temperature':'Temperature (C)',
+'chlora':'Chlorophyll-A','bb':'Particulate Backscatter','fdom':'Fluorescent DOM',
+'spkir':'Spectral Irradiance',
+'nitrate':'Nitrate Concentration',
+'pco2':'CO2 Concentration',
+'do':'Dissolved Oxygen',
+'par':'Photosynthetically Available Radiation',
+'ph':'pH',
+'up':'Current: Vertical','east':'Current: East','north':'Current: North'
+}
 
 
 
