@@ -48,20 +48,32 @@ sensors = [
 ['up', 'vel'], ['east', 'vel'], ['north', 'vel']]
 
 ranges = {
-'conductivity':(33,37),'density':(1024, 1028),'pressure':(0.,200.),'salinity':(31.5, 34.5),'temperature':(6.5, 11.),
-'chlora':(-0.1,1.2),'bb':(0.0007,0.0040),'fdom':(0.6,3.4),
+'conductivity':(34.5,36.5),'density':(1024, 1028),'pressure':(0.,200.),'salinity':(32, 35),'temperature':(7, 12),
+'chlora':(0.,1.5),'bb':(0.00,0.003),'fdom':(0.5,2.),
 'spkir':(0.0, 15.0),
 'nitrate':(0., 35.),
 'pco2':(200.0, 1200.0),
-'do':(50.0, 300.),
+'do':(50.0, 400.),
 'par':(0.0, 300.),
 'ph':(7.6, 8.2),
 'up':(-0.4, 0.4),'east':(-0.4, 0.4),'north':(-0.4, 0.4)
 }
 
+standard_deviations = {
+'conductivity':(0.1, 0.6),'density':(0., .3),'pressure':(0.,10.),'salinity':(.0, .4),'temperature':(.0, .7),
+'chlora':(0.0, 0.5),'bb':(0.0,0.001),'fdom':(0.0,0.3),
+'spkir':(0.0, .5),
+'nitrate':(0., 4.),
+'pco2':(0.0, 10.0),
+'do':(0.0, 40.),
+'par':(0.0, 30.),
+'ph':(0., 0.2),
+'up':(0., 0.1),'east':(0, 0.1),'north':(0., 0.1)
+}
+
 colors = {
-'conductivity':'black','density':'black','pressure':'magenta','salinity':'cyan','temperature':'red',
-'chlora':'green','bb':'xkcd:blood orange','fdom':'cyan',
+'conductivity':'xkcd:maroon','density':'xkcd:brick red','pressure':'xkcd:eggplant','salinity':'cyan','temperature':'red',
+'chlora':'green','bb':'xkcd:blood orange','fdom':'xkcd:olive drab',
 'spkir':'black',
 'nitrate':'black',
 'pco2':'black',
