@@ -118,7 +118,7 @@ def ReformatDataFile(verbose=False):
 
     
     print('\n\nSelect output time window (Format yyyy-mm-dd or enter to use the defaults)\n')
-    t0_default, t1_default = '2021-07-01', '2021-08-01'             # !!!!! hardcode
+    t0_default, t1_default = '2021-04-01', '2021-05-01'             # !!!!! hardcode
     # t0 = input('start date (' + t0_default + ')')
     # t1 = input('end date   (' + t1_default + ')')
     # if not len(t0): t0 = t0_default

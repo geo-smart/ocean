@@ -48,8 +48,8 @@ sensors = [
 ['up', 'vel'], ['east', 'vel'], ['north', 'vel']]
 
 ranges = {
-'conductivity':(34.5,36.5),'density':(1024, 1028),'pressure':(0.,200.),'salinity':(32, 35),'temperature':(7, 12),
-'chlora':(0.,1.5),'bb':(0.00,0.003),'fdom':(0.5,2.),
+'conductivity':(33.5,36.5),'density':(1022, 1028),'pressure':(0.,200.),'salinity':(31, 35),'temperature':(7, 14),
+'chlora':(0.,1.5),'bb':(0.00,0.006),'fdom':(0.5,4.5),
 'spkir':(0.0, 15.0),
 'nitrate':(0., 35.),
 'pco2':(200.0, 1200.0),
@@ -61,7 +61,7 @@ ranges = {
 
 standard_deviations = {
 'conductivity':(0.1, 0.6),'density':(0., .3),'pressure':(0.,10.),'salinity':(.0, .4),'temperature':(.0, .7),
-'chlora':(0.0, 0.5),'bb':(0.0,0.001),'fdom':(0.0,0.3),
+'chlora':(0.0, 0.5),'bb':(0.0,0.003),'fdom':(0.0,0.7),
 'spkir':(0.0, .5),
 'nitrate':(0., 4.),
 'pco2':(0.0, 10.0),
