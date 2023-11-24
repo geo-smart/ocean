@@ -64,7 +64,11 @@ The following examples demonstrate potential project directions. Alternative ide
 ## Project Background: The Data Sketch
 
 
--
+- Shallow profilers run a dozen or so instruments through the upper 200 meters of the water column nine times per day
+- On the support platform at 200m depth an ADCP profiles current (200m to surface)
+- ARGO floats: CTD and BGC
+- ROMS ocean model
+- MODIS sea surface data
 
 
 ## Project operational details
