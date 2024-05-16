@@ -2,23 +2,21 @@
 
 
 
-# 'Ocean': Understanding synoptic ocean sensor data
+# Ocean: Exploring synoptic ocean sensor data
 
 
 ## Project Overview
 
 
-The primary goal is to transform observational ocean data into
-scientific insight into how the ocean works as a major component of the earth system.
-Turning first to the data resource: The **Oceans Observatories Initiative** has operated 
-since 2014 generating a profoundly rich dataset.
-The variety and scope extend for nearly a decade across continental shelves and the deep ocean, across 
-the water column from sea floor to surface, from seismology to marine mammal vocalizations to physical,
-chemical and biological sensors. At the same time this complex system presents challenges in analysis 
-and interpretation. 
+The goal is to use observational ocean data to
+explore the ocean. We begin with 
+the **Oceans Observatories Initiative** producing data 
+since 2014: From continental shelves to the deep ocean, 
+from sea floor to surface, from seismology to marine mammal vocalizations to physical,
+chemical and biological sensors.
 
 
-The starting point or core of this project is a characterization of the ocean photic zone, from 200 meters
+We begin in the ocean's photic zone, from 200 meters
 depth to the surface, the region of light. Regular observations include temperature, dissolved oxygen, 
 salinity, particulate backscatter, chlorophyll concentration, dissolved organic matter fluorescence, 
 nitrate concentration, pH, carbon dioxide concentration, spectral irradiance (7 wavelengths), 
@@ -64,7 +62,11 @@ The following examples demonstrate potential project directions. Alternative ide
 ## Project Background: The Data Sketch
 
 
--
+- Shallow profilers run a dozen or so instruments through the upper 200 meters of the water column nine times per day
+- On the support platform at 200m depth an ADCP profiles current (200m to surface)
+- ARGO floats: CTD and BGC
+- ROMS ocean model
+- MODIS sea surface data
 
 
 ## Project operational details
