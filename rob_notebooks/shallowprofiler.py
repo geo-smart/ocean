@@ -34,12 +34,10 @@ def ReadProfileMetadata(fnm):
     df['d1t'] = pd.to_datetime(df['d1t'])
     return df
 
-
-
 sensors = [
 ['conductivity', 'ctd'], ['density', 'ctd'], ['pressure', 'ctd'], ['salinity', 'ctd'], ['temperature', 'ctd'],
 ['chlora', 'fluor'], ['bb', 'fluor'], ['fdom', 'fluor'],
-['spkir', 'spkir'],
+['spkir412nm', 'spkir'], ['spkir443nm', 'spkir'], ['spkir490nm', 'spkir'], ['spkir510nm', 'spkir'], ['spkir555nm', 'spkir'], ['spkir620nm', 'spkir'], ['spkir683nm', 'spkir'],
 ['nitrate', 'nitrate'],
 ['pco2', 'pco2'],
 ['do', 'do'],
@@ -50,7 +48,7 @@ sensors = [
 ranges = {
 'conductivity':(33.5,36.5),'density':(1022, 1028),'pressure':(0.,200.),'salinity':(31, 35),'temperature':(7, 14),
 'chlora':(0.,1.5),'bb':(0.00,0.006),'fdom':(0.5,4.5),
-'spkir':(0.0, 15.0),
+'spkir412nm':(0.0, 15.0), 'spkir443nm':(0.0, 15.0), 'spkir490nm':(0.0, 15.0), 'spkir510nm':(0.0, 15.0), 'spkir555nm':(0.0, 15.0), 'spkir620nm':(0.0, 15.0), 'spkir683nm':(0.0, 15.0),
 'nitrate':(0., 35.),
 'pco2':(200.0, 1200.0),
 'do':(50.0, 400.),
@@ -62,7 +60,7 @@ ranges = {
 standard_deviations = {
 'conductivity':(0.1, 0.6),'density':(0., .3),'pressure':(0.,10.),'salinity':(.0, .4),'temperature':(.0, .7),
 'chlora':(0.0, 0.5),'bb':(0.0,0.003),'fdom':(0.0,0.7),
-'spkir':(0.0, .5),
+'spkir412nm':(0.0, .5), 'spkir443nm':(0.0, .5), 'spkir490nm':(0.0, .5), 'spkir510nm':(0.0, .5), 'spkir555nm':(0.0, .5), 'spkir620nm':(0.0, .5), 'spkir683nm':(0.0, .5),
 'nitrate':(0., 4.),
 'pco2':(0.0, 10.0),
 'do':(0.0, 40.),
@@ -74,7 +72,7 @@ standard_deviations = {
 colors = {
 'conductivity':'xkcd:maroon','density':'xkcd:brick red','pressure':'xkcd:eggplant','salinity':'cyan','temperature':'red',
 'chlora':'green','bb':'xkcd:blood orange','fdom':'xkcd:olive drab',
-'spkir':'black',
+'spkir412nm':'black', 'spkir443nm':'black', 'spkir490nm':'black', 'spkir510nm':'black', 'spkir555nm':'black', 'spkir620nm':'black', 'spkir683nm':'black',
 'nitrate':'black',
 'pco2':'black',
 'do':'blue',
@@ -86,7 +84,13 @@ colors = {
 sensor_names = {
 'conductivity':'Conductivity','density':'Density (kg m-3)','pressure':'Pressure','salinity':'Salinity','temperature':'Temperature (C)',
 'chlora':'Chlorophyll-A','bb':'Particulate Backscatter','fdom':'Fluorescent DOM',
-'spkir':'Spectral Irradiance',
+'spkir412nm':'Spectral Irradiance 412nm',
+'spkir443nm':'Spectral Irradiance 443nm',
+'spkir490nm':'Spectral Irradiance 490nm',
+'spkir510nm':'Spectral Irradiance 510nm',
+'spkir555nm':'Spectral Irradiance 555nm',
+'spkir620nm':'Spectral Irradiance 620nm',
+'spkir683nm':'Spectral Irradiance 683nm',
 'nitrate':'Nitrate Concentration',
 'pco2':'CO2 Concentration',
 'do':'Dissolved Oxygen',
@@ -97,6 +101,6 @@ sensor_names = {
 
 
 
-def DataFnm(site, instrument, time, sensor): 
+def AssembleDataFnm(site, instrument, time, sensor): 
     datafnm = './../data/' + site + '_' + instrument + '_' + time + '_' + sensor + '.nc'
     return datafnm
