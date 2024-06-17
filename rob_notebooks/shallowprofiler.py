@@ -12,6 +12,7 @@ def doy(theDatetime): return 1 + int((theDatetime - dt64(str(theDatetime)[0:4] +
 def dt64_from_doy(year, doy): return dt64(str(year) + '-01-01') + td64(doy-1, 'D')
 def day_of_month_to_string(d): return str(d) if d > 9 else '0' + str(d)
 
+
 print('\nJupyter Notebook running Python {}'.format(sys.version_info[0]))
 
 
@@ -72,7 +73,8 @@ standard_deviations = {
 colors = {
 'conductivity':'xkcd:maroon','density':'xkcd:brick red','pressure':'xkcd:eggplant','salinity':'cyan','temperature':'red',
 'chlora':'green','bb':'xkcd:blood orange','fdom':'xkcd:olive drab',
-'spkir412nm':'black', 'spkir443nm':'black', 'spkir490nm':'black', 'spkir510nm':'black', 'spkir555nm':'black', 'spkir620nm':'black', 'spkir683nm':'black',
+'spkir412nm':'black', 'spkir443nm':'black', 'spkir490nm':'black', 'spkir510nm':'black', 
+'spkir555nm':'black', 'spkir620nm':'black', 'spkir683nm':'black',
 'nitrate':'black',
 'pco2':'black',
 'do':'blue',
@@ -82,7 +84,8 @@ colors = {
 }
 
 sensor_names = {
-'conductivity':'Conductivity','density':'Density (kg m-3)','pressure':'Pressure','salinity':'Salinity','temperature':'Temperature (C)',
+'conductivity':'Conductivity','density':'Density (kg m-3)','pressure':'Pressure',
+'salinity':'Salinity','temperature':'Temperature (C)',
 'chlora':'Chlorophyll-A','bb':'Particulate Backscatter','fdom':'Fluorescent DOM',
 'spkir412nm':'Spectral Irradiance 412nm',
 'spkir443nm':'Spectral Irradiance 443nm',
